@@ -88,16 +88,23 @@ middleware:
     max_attempts: 3
     initial_delay: 1.0
     max_delay: 60.0
-
-push_notifications:
+ai:
   enabled: true
-  backend: memory
-  validate_urls: true
-  retry_attempts: 3
-  timeout: 30
+  system_prompt: 'You are agentup-systools-agent, an AI agent created with AgentUp.
 
+    Your role:
 
-# AI Provider configuration
+    - Understand user requests naturally and conversationally
+
+    - Use the appropriate functions when needed to help users
+
+    - Provide helpful, accurate, and friendly responses
+
+    - Maintain context across conversations
+
+    Always be helpful, accurate, and maintain a friendly tone.
+
+    '
 ai_provider:
   provider: openai
   api_key: ${OPENAI_API_KEY}
@@ -106,18 +113,9 @@ ai_provider:
   max_tokens: 1000
   top_p: 1.0
 
-
-# AI system prompt and configuration
-ai:
-  enabled: True
-  system_prompt: |
-    You are agentup-systools-agent, an AI agent created with AgentUp.
-
-    Your role:
-    - Understand user requests naturally and conversationally
-    - Use the appropriate functions when needed to help users
-    - Provide helpful, accurate, and friendly responses
-    - Maintain context across conversations
-
-    Always be helpful, accurate, and maintain a friendly tone.
-
+push_notifications:
+  enabled: true
+  backend: memory
+  validate_urls: true
+  retry_attempts: 3
+  timeout: 30
