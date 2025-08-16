@@ -1,0 +1,89 @@
+# API version for configuration evolution
+apiVersion: v1
+
+# Agent Information
+name: test-deps
+description: AI Agent test-deps Project.
+version: 0.5.7
+url: http://localhost:8000
+provider_organization: AgentUp
+provider_url: https://agentup.dev
+icon_url: https://raw.githubusercontent.com/RedDotRocket/AgentUp/refs/heads/main/assets/icon.png
+documentation_url: https://docs.agentup.dev
+
+# Global defaults for plugin configuration
+global_defaults:
+  middleware:
+
+# Plugin configurations with overrides
+plugins:
+  # Example plugin configuration with overrides
+  # - package: "agentup-systools"
+  #   enabled: true
+  #   middleware:
+  #     - name: "cached"
+  #       params:
+  #         default_ttl: 60
+  #   capabilities:
+  #     file_operations:
+  #       enabled: true
+  #       required_scopes: ["files:write", "files:read"]
+  #       middleware:
+  #         - name: "rate_limited"
+  #           params:
+  #             requests_per_minute: 30
+
+# Security Configuration
+security:
+  enabled: False
+
+# Middleware configuration (global defaults - can be overridden per plugin)
+middleware:
+  enabled: False
+  rate_limiting:
+    enabled: false
+    requests_per_minute: 60
+    burst_size: 72
+  caching:
+    enabled: false
+    backend: memory
+    default_ttl: 300
+    max_size: 1000
+  retry:
+    enabled: false
+    max_attempts: 3
+    initial_delay: 1.0
+    max_delay: 60.0
+
+# Push notifications configuration
+push_notifications:
+  enabled: True
+  backend: memory
+  validate_urls: True
+  retry_attempts: 3
+  timeout: 30
+# Logging configuration
+logging:
+  enabled: True
+  level: "INFO"
+  format: "text"
+
+  # Console output settings
+  console:
+    enabled: True
+    colors: True
+
+  # Advanced features
+  correlation_id: False
+  request_logging: False
+  # Uvicorn integration
+  uvicorn:
+    access_log: False
+    disable_default_handlers: true
+    use_colors: True
+
+
+# Development configuration
+# WARNING: These features can be security risks and should NEVER be enabled in production
+development:
+  enabled: False  # Master switch for ALL development features
