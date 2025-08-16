@@ -1,3 +1,5 @@
-# Test Auto Boot
+# Test Agent Bootstrap
 
-AI Agent test-deps Project.
+Built with [AgentUp](https://github.com/RedDotRocket/AgentUp)
+
+
