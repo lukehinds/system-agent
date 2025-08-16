@@ -6,6 +6,43 @@ description: AI Agent test-deps Project.
 
 version: 0.5.7
 
+plugins:
+  agentup-systools:
+    capabilities:
+      create_directory:
+        required_scopes:
+          - files:write
+      delete_file:
+        required_scopes:
+          - files:admin
+      execute_command:
+        required_scopes:
+          - system:admin
+      file_exists:
+        required_scopes:
+          - files:read
+      file_hash:
+        required_scopes:
+          - files:read
+      file_info:
+        required_scopes:
+          - files:read
+      file_read:
+        required_scopes:
+          - files:read
+      file_write:
+        required_scopes:
+          - files:write
+      list_directory:
+        required_scopes:
+          - files:read
+      system_info:
+        required_scopes:
+          - system:read
+      working_directory:
+        required_scopes:
+          - system:read
+
 global_defaults:
   middleware:
     rate_limiting:
