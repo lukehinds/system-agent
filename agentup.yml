@@ -1,45 +1,79 @@
-# API version for configuration evolution
 apiVersion: v1
 
-# Agent Information
 name: test-deps
-description: AI Agent test-deps Project.
-version: 0.5.7
-url: http://localhost:8000
-provider_organization: AgentUp
-provider_url: https://agentup.dev
-icon_url: https://raw.githubusercontent.com/RedDotRocket/AgentUp/refs/heads/main/assets/icon.png
-documentation_url: https://docs.agentup.dev
 
-# Global defaults for plugin configuration
+description: AI Agent test-deps Project.
+
+version: 0.5.7
+
+plugins:
+  agentup-systools:
+    capabilities:
+      create_directory:
+        required_scopes:
+          - files:write
+      delete_file:
+        required_scopes:
+          - files:admin
+      execute_command:
+        required_scopes:
+          - system:admin
+      file_exists:
+        required_scopes:
+          - files:read
+      file_hash:
+        required_scopes:
+          - files:read
+      file_info:
+        required_scopes:
+          - files:read
+      file_read:
+        required_scopes:
+          - files:read
+      file_write:
+        required_scopes:
+          - files:write
+      list_directory:
+        required_scopes:
+          - files:read
+      system_info:
+        required_scopes:
+          - system:read
+      working_directory:
+        required_scopes:
+          - system:read
+
 global_defaults:
   middleware:
+    rate_limiting:
+      enabled: false
+      requests_per_minute: 60
+      burst_size: 72
+    retry:
+      enabled: false
+      max_attempts: 3
+      initial_delay: 1.0
+      max_delay: 60.0
 
-# Plugin configurations with overrides
-plugins:
-  # Example plugin configuration with overrides
-  # - package: "agentup-systools"
-  #   enabled: true
-  #   middleware:
-  #     - name: "cached"
-  #       params:
-  #         default_ttl: 60
-  #   capabilities:
-  #     file_operations:
-  #       enabled: true
-  #       required_scopes: ["files:write", "files:read"]
-  #       middleware:
-  #         - name: "rate_limited"
-  #           params:
-  #             requests_per_minute: 30
+logging:
+  enabled: true
+  level: INFO
+  format: text
+  console:
+    enabled: true
+    colors: true
+  correlation_id: false
+  request_logging: false
+  uvicorn:
+    access_log: false
+    disable_default_handlers: true
+    use_colors: true
 
-# Security Configuration
 security:
-  enabled: False
+  enabled: false
 
-# Middleware configuration (global defaults - can be overridden per plugin)
 middleware:
-  enabled: False
+  enabled: false
   rate_limiting:
     enabled: false
     requests_per_minute: 60
@@ -55,35 +89,9 @@ middleware:
     initial_delay: 1.0
     max_delay: 60.0
 
-# Push notifications configuration
 push_notifications:
-  enabled: True
+  enabled: true
   backend: memory
-  validate_urls: True
+  validate_urls: true
   retry_attempts: 3
   timeout: 30
-# Logging configuration
-logging:
-  enabled: True
-  level: "INFO"
-  format: "text"
-
-  # Console output settings
-  console:
-    enabled: True
-    colors: True
-
-  # Advanced features
-  correlation_id: False
-  request_logging: False
-  # Uvicorn integration
-  uvicorn:
-    access_log: False
-    disable_default_handlers: true
-    use_colors: True
-
-
-# Development configuration
-# WARNING: These features can be security risks and should NEVER be enabled in production
-development:
-  enabled: False  # Master switch for ALL development features
